@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fbfbfa;
+  --fg: #111114;
+  --muted: #6b6b73;
+  --line: rgba(17, 17, 20, 0.1);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  background: var(--bg);
+  color: var(--fg);
+  position: relative;
+  isolation: isolate;
+}
+
+/* subtle paper/noise + gentle gradients to avoid "empty" look */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    radial-gradient(1200px 800px at 20% -10%, rgba(17, 17, 20, 0.06), transparent 60%),
+    radial-gradient(900px 700px at 90% 10%, rgba(17, 17, 20, 0.045), transparent 55%),
+    radial-gradient(800px 600px at 40% 110%, rgba(17, 17, 20, 0.04), transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  background-size: auto, auto, auto, 220px 220px;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+::selection {
+  background: rgba(17, 17, 20, 0.08);
+}
