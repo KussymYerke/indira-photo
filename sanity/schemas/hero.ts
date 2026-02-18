@@ -4,7 +4,6 @@ export default defineType({
   name: "hero",
   title: "Hero (Главный экран)",
   type: "document",
-  __experimental_actions: ["update", "publish"],
   fields: [
     defineField({
       name: "slides",

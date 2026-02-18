@@ -9,6 +9,6 @@ export default defineConfig({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
   basePath: "/studio",
-  plugins: [deskTool({ structure })],
+  plugins: [deskTool({ structure: structure as any })],
   schema: { types: schemaTypes },
 });

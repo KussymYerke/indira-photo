@@ -4,7 +4,6 @@ export default defineType({
   name: "settings",
   title: "Настройки сайта",
   type: "document",
-  __experimental_actions: ["update", "publish"],
   fields: [
     defineField({ name: "fullName", title: "ФИО", type: "string" }),
     defineField({ name: "tagline", title: "Слоган", type: "string" }),

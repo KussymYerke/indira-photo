@@ -12,13 +12,24 @@ import {
 } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 
+type HeroSlide = {
+  image: string;
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  primaryCta: { label: string; href: string };
+  secondaryCta: { label: string; href: string };
+  footerLeftLabel?: string;
+  footerProject?: string;
+};
+
 export default async function HomePage() {
   const { data: settings } = await sanityFetch<any>({ query: settingsQuery });
-
   const { data: hero } = await sanityFetch<any>({ query: heroQuery });
   const { data: featuredSection } = await sanityFetch<any>({
     query: featuredSectionQuery,
   });
+
   const { data: designerItems } = await sanityFetch<any[]>({
     query: worksByCategoryQuery,
     params: { category: "designer" },
@@ -33,15 +44,16 @@ export default async function HomePage() {
   const phone = settings?.phone;
   const city = settings?.city;
 
-  const featured = (
-    Array.isArray(featuredSection?.works) ? featuredSection.works : []
-  ) as any[];
+  const featured: any[] = Array.isArray(featuredSection?.works)
+    ? featuredSection.works
+    : [];
 
-  const heroSlides = Array.isArray(hero?.slides)
+  const heroSlides: HeroSlide[] = Array.isArray(hero?.slides)
     ? hero.slides
-        .map((s: any) => {
+        .map((s: any): HeroSlide | null => {
           const img = s?.image ? urlFor(s.image).width(2400).url() : "";
           if (!img) return null;
+
           return {
             image: img,
             eyebrow: s?.eyebrow,
@@ -59,27 +71,24 @@ export default async function HomePage() {
             footerProject: s?.footerProject,
           };
         })
-        .filter(Boolean)
+        .filter((x: HeroSlide | null): x is HeroSlide => x !== null)
     : [];
-
+    
   return (
     <>
       <HeroCarousel slides={heroSlides as any} />
 
-      {/* актуальные (3 проекта, можно свайпать) */}
       <FeaturedCarousel
         items={featured}
         eyebrow={featuredSection?.eyebrow}
         title={featuredSection?.title}
       />
 
-      {/* портфолио по категориям */}
       <HomeWorksTabs
         designerItems={designerItems}
         commercialItems={commercialItems}
       />
 
-      {/* кратко о фотографе */}
       <AboutSection
         name={settings?.fullName}
         city={city}
@@ -90,7 +99,6 @@ export default async function HomePage() {
         phone={phone}
       />
 
-      {/* заявка + контакты */}
       <LeadCtaSection instagramUrl={instagram} phone={phone} city={city} />
     </>
   );

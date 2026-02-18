@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { sanityFetch } from "@/sanity/lib/live";
 import { allWorksQuery } from "@/sanity/lib/queries";
 import { WorksClient } from "@/components/WorksClient";
@@ -22,5 +23,10 @@ type WorkCard = {
 export default async function WorksPage() {
   const { data } = await sanityFetch<WorkCard[]>({ query: allWorksQuery });
   const items = Array.isArray(data) ? data : [];
-  return <WorksClient items={items} />;
+
+  return (
+    <Suspense fallback={null}>
+      <WorksClient items={items} />
+    </Suspense>
+  );
 }
