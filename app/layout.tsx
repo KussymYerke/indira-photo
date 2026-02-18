@@ -23,7 +23,7 @@ export default function RootLayout({
     "@type": "ProfessionalService",
     name: "Индира Юсупова — интерьерный фотограф",
     areaServed: "Almaty",
-    telephone: "+7 777 777 77 77",
+    telephone: "+7 701 943 5553",
     sameAs: ["https://www.instagram.com/indira_yussupova_ph/"],
   };
 

@@ -17,10 +17,10 @@ export function Footer() {
             Instagram
           </a>
           <a
-            href="tel:+77777777777"
+            href="tel:+7 701 943 5553"
             className="text-[var(--muted)] hover:text-[var(--fg)] transition"
           >
-            +7 777 777 77 77
+            +7 701 943 5553
           </a>
           <span className="text-[var(--muted)]">Алматы</span>
         </div>
